@@ -1,0 +1,4 @@
+- name: Install caso
+  package:
+    name: caso
+    state: latest
