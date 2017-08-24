@@ -1,7 +1,7 @@
 {
 {% for vo, projects in vos.iteritems() %}
         "{{ vo }}": {
-            "tenants": {{ projects }}
+            "projects": ["{{ projects | join("\", \"") }}"]
         }
 {% endfor %}
 }
