@@ -2,3 +2,19 @@
   package:
     name: caso
     state: latest
+
+- name: Configure caso.conf
+  template:
+    src: templates/caso.conf.j2
+    dest: /etc/caso/caso.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Configure voms.conf
+  template:
+    src: templates/voms.conf.j2
+    dest: /etc/caso/voms.conf
+    owner: root
+    group: root
+    mode: 0644
