@@ -11,10 +11,10 @@
     group: root
     mode: 0644
 
-- name: Configure voms.conf
+- name: Configure voms.json
   template:
-    src: templates/voms.conf.j2
-    dest: /etc/caso/voms.conf
+    src: templates/voms.json.j2
+    dest: /etc/caso/voms.json
     owner: root
     group: root
     mode: 0644
