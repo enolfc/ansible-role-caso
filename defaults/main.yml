@@ -1,0 +1,2 @@
+caso_conf: /etc/caso/caso.conf
+voms_json: /etc/caso/voms.json

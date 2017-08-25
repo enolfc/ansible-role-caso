@@ -3,10 +3,15 @@
     name: caso
     state: latest
 
+- set_fact:
+    caso_conf: /usr/etc/caso/caso.conf
+    voms_json: /usr/etc/caso/voms.json
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat'
+
 - name: Configure caso.conf
   template:
     src: templates/caso.conf.j2
-    dest: /etc/caso/caso.conf
+    dest: {{ caso_conf }}
     owner: root
     group: root
     mode: 0644
@@ -14,7 +19,7 @@
 - name: Configure voms.json
   template:
     src: templates/voms.json.j2
-    dest: /etc/caso/voms.json
+    dest: {{ voms_json }}
     owner: root
     group: root
     mode: 0644
