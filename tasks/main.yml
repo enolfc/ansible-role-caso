@@ -11,7 +11,7 @@
 - name: Configure caso.conf
   template:
     src: templates/caso.conf.j2
-    dest: {{ caso_conf }}
+    dest: "{{ caso_conf }}"
     owner: root
     group: root
     mode: 0644
@@ -19,7 +19,7 @@
 - name: Configure voms.json
   template:
     src: templates/voms.json.j2
-    dest: {{ voms_json }}
+    dest: "{{ voms_json }}"
     owner: root
     group: root
     mode: 0644
