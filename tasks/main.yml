@@ -5,7 +5,7 @@
 
 - set_fact:
     caso_conf: /usr/etc/caso/caso.conf
-    voms_json: /usr/etc/caso/voms.json
+    mapping_file: /usr/etc/caso/voms.json
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat'
 
 - name: Configure caso.conf
