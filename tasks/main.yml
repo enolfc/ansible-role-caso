@@ -19,7 +19,7 @@
 - name: Configure voms.json
   template:
     src: templates/voms.json.j2
-    dest: "{{ voms_json }}"
+    dest: "{{ mapping_file }}"
     owner: root
     group: root
     mode: 0644
