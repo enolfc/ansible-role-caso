@@ -20,13 +20,13 @@ before_script:
       markdownlint --ignore $md_ignore $file ;
       done
 script:
-  - molecule -s $SCENARIO lint
-  - molecule -s $SCENARIO syntax
-  - molecule -s $SCENARIO dependency
-  - molecule -s $SCENARIO create
-  - molecule -s $SCENARIO converge
-  - molecule -s $SCENARIO idempotence
-  - molecule -s $SCENARIO verify
+  - molecule  lint  -s $SCENARIO
+  - molecule  syntax  -s $SCENARIO
+  - molecule  dependency  -s $SCENARIO
+  - molecule  create  -s $SCENARIO
+  - molecule  converge  -s $SCENARIO
+  - molecule  idempotence  -s $SCENARIO
+  - molecule  verify  -s $SCENARIO
   - cd $TRAVIS_BUILD_DIR
 after_success:
 after_failure:
