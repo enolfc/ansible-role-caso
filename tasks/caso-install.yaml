@@ -1,0 +1,3 @@
+---
+- name: Install caso
+  package: name=caso state=present

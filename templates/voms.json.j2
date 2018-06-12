@@ -1,0 +1,8 @@
+{
+    {% for vo in caso_vos -%}
+    "{{ vo }}": {
+        "projects": {{ caso_vos[vo] | to_json }}
+    }
+    {%- if not loop.last %},{% endif %}
+    {% endfor %}
+}

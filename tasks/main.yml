@@ -1,0 +1,5 @@
+---
+# tasks file for ansible-role-caso
+- include: caso-install.yaml tags=caso,caso:install
+- include: caso-config.yaml tags=caso,caso:config
+- include: caso-cron.yaml tags=caso,caso:cron

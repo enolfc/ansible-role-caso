@@ -1,0 +1,6 @@
+---
+- name: Create ssm send cron file
+  cron:
+    name: "caso"
+    minute: "17"
+    job: "caso-extract >> /var/log/caso.log 2>&1"

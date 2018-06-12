@@ -1,0 +1,42 @@
+---
+# defaults file for ansible-role-caso
+
+caso_messenger: caso.messenger.ssm.SSMMessengerV04
+caso_spooldir: /var/spool/caso
+caso_mapping_file: /etc/caso/voms.json
+caso_extractor: nova
+caso_output_path: /var/spool/apel/outgoing/openstack
+
+# Name of the site to account for as defined in GOCDB
+caso_site_name:
+
+# caso_vos contains which VOs you want to produce accounting for and the
+# local porjects that wil contribute to that accounting, e.g. resources
+# consumed in "ops_project" will be shown in the accounting of ops VO,
+# resources in "local_project1" and "local_project2" will both contribute
+# to the accounting of "some.vo.name" VO:
+# caso_vos:
+#   ops:
+#   - ops_project
+#   some.vo.name:
+#   - local_project1
+#   - local_project2
+caso_vos:
+
+
+# define the authentication for the user that will collect the accounting
+# data from your OpenStack, this user needs to have permission to list
+# users in your keystone
+caso_auth:
+  auth_type:
+  auth_section:
+  cafile:
+  certfile:
+  keyfile:
+  insecure: false
+  timeout:
+  auth_url:
+  domain_id:
+  domain_name:
+  project_id:
+  project_name:
