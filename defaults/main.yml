@@ -6,6 +6,7 @@ caso_spooldir: /var/spool/caso
 caso_mapping_file: /etc/caso/voms.json
 caso_extractor: nova
 caso_output_path: /var/spool/apel/outgoing/openstack
+caso_conf_file: /etc/caso/caso.conf
 
 # Name of the site to account for as defined in GOCDB
 caso_site_name:

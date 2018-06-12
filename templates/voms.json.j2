@@ -1,10 +1,10 @@
 {
 {% if caso_vos %}
-    {% for vo in caso_vos -%}
+{% for vo, projects in caso_vos.iteritems() %}
     "{{ vo }}": {
-        "projects": {% if caso_vos[vo] is string %}['{{ caso_vos[vo] }}']{% else %}{{ caso_vos[vo] | to_json }}{% endif %}
+        "projects": ["{% if projects is string %}{{ projects }}{% else %}{{ projects | join("\", \"")}}{% endif %}"]
     }
     {%- if not loop.last %},{% endif %}
-    {% endfor %}
+{% endfor %}
 {% endif %}
 }
