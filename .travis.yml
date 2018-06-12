@@ -21,8 +21,8 @@ before_script:
       done
 script:
   - molecule  lint  -s $SCENARIO
-  - molecule  syntax  -s $SCENARIO
   - molecule  dependency  -s $SCENARIO
+  - molecule  syntax  -s $SCENARIO
   - molecule  create  -s $SCENARIO
   - molecule  converge  -s $SCENARIO
   - molecule  idempotence  -s $SCENARIO
