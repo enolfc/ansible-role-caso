@@ -12,3 +12,10 @@ def test_hosts_file(host):
     assert f.exists
     assert f.user == 'root'
     assert f.group == 'root'
+
+
+def test_packages(host):
+    
+    p = host.package('cronie')
+
+    assert p.is_installed
