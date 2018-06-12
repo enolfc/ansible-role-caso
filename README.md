@@ -1,16 +1,19 @@
 # Role Name
 
+[![Build Status](https://travis-ci.com/EGI-Foundation/ansible-role-caso.svg?branch=master)](https://travis-ci.com/EGI-Foundation/ansible-role-caso)
+
 <!-- A brief description of the role goes here. -->
 
 ## Requirements
 
-None
+See the dependencies on `defaults/main.yml`
 
 ## Role Variables
 
-<!--
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
--->
+Variables are described in `defaults/main.yml`.
+Be sure to set at least a list of VOs to enable at your site.
+
+The site name should correspond to the name of the site in GOC.
 
 ## Dependencies
 
@@ -22,6 +25,7 @@ Use https://galaxy.ansible.com/EGI-Foundation/ roles first if possible.
 
 ## Example Playbook
 
+You should use this role with the [EGI-Foundation.cmd](https://galaxy.ansible.com/EGI-Foundation/cmd/) role
 <!--
 Including an example of how to use your role (for instance, with variables
 passed in as parameters) is always nice for users too:
@@ -30,7 +34,8 @@ passed in as parameters) is always nice for users too:
 ```yaml
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: EGI-Foundation.cmd}
+         - { role: EGI-Foundation.caso, vos: ["ops","dteam"] }
 ```
 
 ## License
@@ -39,6 +44,7 @@ Apache-2.0
 
 ## Author Information
 
+See AUTHORS.md
 <!--
 Add the relevant contributors
 -->
