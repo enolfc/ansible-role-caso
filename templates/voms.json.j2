@@ -1,8 +1,10 @@
 {
+{% if caso_vos %}
     {% for vo in caso_vos -%}
     "{{ vo }}": {
-        "projects": {{ caso_vos[vo] | to_json }}
+        "projects": {% if caso_vos[vo] is string %}['{{ caso_vos[vo] }}']{% else %}{{ caso_vos[vo] | to_json }}{% endif %}
     }
     {%- if not loop.last %},{% endif %}
     {% endfor %}
+{% endif %}
 }
