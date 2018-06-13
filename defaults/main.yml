@@ -11,6 +11,7 @@ default_packages:
 caso_messenger: caso.messenger.ssm.SSMMessengerV04
 caso_spooldir: /var/spool/caso
 caso_mapping_file: /etc/caso/voms.json
+caso_conf_file: /etc/caso/caso.conf
 caso_extractor: nova
 caso_output_path: /var/spool/apel/outgoing/openstack
 
