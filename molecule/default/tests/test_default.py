@@ -15,7 +15,7 @@ def test_hosts_file(host):
 
 
 def test_packages(host):
-    
+
     p = host.package('cronie')
 
     assert p.is_installed
