@@ -1,14 +1,9 @@
 ---
-- set_fact:
-    caso_conf: /usr/etc/caso/caso.conf
-    mapping_file: /usr/etc/caso/voms.json
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat'
-
 - name: Create caso configuration directory
   file:
     path: "{{ item }}"
     state: directory
-  with:
+  loop:
     - "{{ caso_mapping_file | dirname }}"
     - "{{ caso_conf_file | dirname }}"
 
@@ -20,202 +15,25 @@
     group: root
     mode: 0644
 
+- name: Include vars for caso configuration.
+  include_vars:
+    file: caso_ini_file.yaml
+    name: caso_ini_file
 
 - name: Create "{{ caso_conf_file }}"
   block:
-    - name: Configure messenger
+    - name: Configure caso
       ini_file:
         path: "{{ caso_conf_file }}"
-        section: DEFAULT
-        option: messengers
-        value: "{{ caso_messenger }}"
-    - name: Configure spooldir
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: DEFAULT
-        option: spooldir
-        value: "{{ caso_spooldir }}"
-    - name: Configure site name
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: DEFAULT
-        option: site_name
-        value: "{{ caso_site_name }}"
-    - name: Configure projects
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: DEFAULT
-        option: projects
-        value: "{{ caso_vos | json_query('*') | flatten | join(', ') }}"
-      when: caso_vos
-    - name: Configure mapping file
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: DEFAULT
-        option: mapping_file
-        value: "{{ caso_mapping_file }}"
-    - name: Configure extractor
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: DEFAULT
-        option: extractor
-        value: "{{ caso_extractor }}"
-    - name: Configure ssm output path
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: ssm
-        option: output_path
-        value: "{{ caso_output_path }}"
-    - name: Configure auth - auth_url
+        section: "{{ item.section }}"
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
+      loop: "{{ caso_ini_file.caso_conf_options }}"
+    - name: Configure authentication
       ini_file:
         path: "{{ caso_conf_file }}"
         section: keystone_auth
-        option: auth_url
-        value: "{{ caso_auth.auth_url }}"
-    - name: Configure auth - auth_type
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: auth_type
-        value: "{{ caso_auth.auth_type }}"
-      when: caso_auth.auth_type is defined
-    - name: Configure auth - auth_section
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: auth_section
-        value: "{{ caso_auth.auth_section }}"
-      when: caso_auth.auth_section is defined
-    - name: Configure auth - cafile
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: cafile
-        value: "{{ caso_auth.cafile }}"
-      when: caso_auth.cafile is defined
-    - name: Configure auth - certfile
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: certfile
-        value: "{{ caso_auth.certfile }}"
-      when: caso_auth.certfile is defined
-    - name: Configure auth - keyfile
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: keyfile
-        value: "{{ caso_auth.keyfile }}"
-      when: caso_auth.keyfile is defined
-    - name: Configure auth - insecure
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: insecure
-        value: "{{ caso_auth.insecure }}"
-      when: caso_auth.insecure is defined
-    - name: Configure auth - timeout
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: timeout
-        value: "{{ caso_auth.timeout }}"
-      when: caso_auth.timeout is defined
-    - name: Configure auth - domain_id
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: domain_id
-        value: "{{ caso_auth.domain_id }}"
-      when: caso_auth.domain_id is defined
-    - name: Configure auth - domain_name
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: domain_name
-        value: "{{ caso_auth.domain_name }}"
-      when: caso_auth.domain_name is defined
-    - name: Configure auth - project_id
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: project_id
-        value: "{{ caso_auth.project_id }}"
-      when: caso_auth.project_id is defined
-    - name: Configure auth - project_name
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: project_name
-        value: "{{ caso_auth.project_name }}"
-      when: caso_auth.project_name is defined
-    - name: Configure auth - project_domain_id
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: project_domain_id
-        value: "{{ caso_auth.project_domain_id }}"
-      when: caso_auth.project_domain_id is defined
-    - name: Configure auth - project_domain_name
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: project_domain_name
-        value: "{{ caso_auth.project_domain_name }}"
-      when: caso_auth.project_domain_name is defined
-    - name: Configure auth - trust_id
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: trust_id
-        value: "{{ caso_auth.trust_id }}"
-      when: caso_auth.trust_id is defined
-    - name: Configure auth - default_domain_id
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: default_domain_id
-        value: "{{ caso_auth.default_domain_id }}"
-      when: caso_auth.default_domain_id is defined
-    - name: Configure auth - default_domain_name
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: default_domain_name
-        value: "{{ caso_auth.default_domain_name }}"
-      when: caso_auth.default_domain_name is defined
-    - name: Configure auth - user_id
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: user_id
-        value: "{{ caso_auth.user_id }}"
-      when: caso_auth.user_id is defined
-    - name: Configure auth - username
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: username
-        value: "{{ caso_auth.username }}"
-      when: caso_auth.username is defined
-    - name: Configure auth - user_domain_id
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: user_domain_id
-        value: "{{ caso_auth.user_domain_id }}"
-      when: caso_auth.user_domain_id is defined
-    - name: Configure auth - user_domain_name
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: user_domain_name
-        value: "{{ caso_auth.user_domain_name }}"
-      when: caso_auth.user_domain_name is defined
-    - name: Configure auth - password
-      ini_file:
-        path: "{{ caso_conf_file }}"
-        section: keystone_auth
-        option: password
-        value: "{{ caso_auth.password }}"
-      when: caso_auth.password is defined
+        option: "{{ item.key }}"
+        value: "{{ item.value }}"
+      when: item.value
+      with_dict: "{{ caso_auth }}"

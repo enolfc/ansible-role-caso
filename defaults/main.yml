@@ -8,10 +8,17 @@ default_packages:
     - anacron
     - cron
 
+caso_default_mapping_file:
+  debian: /etc/caso/voms.json
+  redhat: /usr/etc/caso/voms.json
+caso_default_conf_file:
+  debian: /etc/caso/caso.conf
+  redhat: /usr/etc/caso/caso.conf
+
 caso_messenger: caso.messenger.ssm.SSMMessengerV04
 caso_spooldir: /var/spool/caso
-caso_mapping_file: /etc/caso/voms.json
-caso_conf_file: /etc/caso/caso.conf
+caso_mapping_file: "{{ caso_default_mapping_file[(ansible_os_family | lower)]}}"
+caso_conf_file: "{{ caso_default_conf_file[(ansible_os_family | lower)]}}"
 caso_extractor: nova
 caso_output_path: /var/spool/apel/outgoing/openstack
 

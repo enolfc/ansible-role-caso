@@ -1,0 +1,24 @@
+---
+caso_conf_options:
+  - section: DEFAULT
+    option: messengers
+    value: "{{ caso_messenger }}"
+  - section: DEFAULT
+    option: spooldir
+    value: "{{ caso_spooldir }}"
+  - section: DEFAULT
+    option: site_name
+    value: "{{ caso_site_name }}"
+  - section: DEFAULT
+    option: projects
+    value: "{% if caso_vos %}{{ caso_vos | json_query('*') | flatten | join(', ') }}{% endif %}"
+  - section: DEFAULT
+    option: mapping_file
+    value: "{{ caso_mapping_file }}"
+  - section: DEFAULT
+    option: extractor
+    value: "{{ caso_extractor }}"
+    path: "{{ caso_conf_file }}"
+  - section: ssm
+    option: output_path
+    value: "{{ caso_output_path }}"
