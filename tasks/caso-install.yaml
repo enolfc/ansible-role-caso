@@ -1,3 +1,8 @@
 ---
+- name: Ensure OS dependencies
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ default_packages[(ansible_os_family | lower)]}}"
 - name: Install caso
   package: name=caso state=present
