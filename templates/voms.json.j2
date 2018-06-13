@@ -1,6 +1,6 @@
 {
 {% if caso_vos %}
-{% for vo, projects in caso_vos.iteritems() %}
+{% for vo, projects in caso_vos.items() %}
     "{{ vo }}": {
         "projects": ["{% if projects is string %}{{ projects }}{% else %}{{ projects | join("\", \"") }}{% endif %}"]
     }
